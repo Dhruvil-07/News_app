@@ -1,45 +1,69 @@
 import 'dart:convert';
 
-CategoryHedalineModel categoryHedalineModelFromJson(String str) => CategoryHedalineModel.fromJson(json.decode(str));
+CategoryModel categoryModelFromJson(String str) => CategoryModel.fromJson(json.decode(str));
 
-String categoryHedalineModelToJson(CategoryHedalineModel data) => json.encode(data.toJson());
+String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
 
-class CategoryHedalineModel {
-  String? id;
-  String? name;
+class CategoryModel {
+  Source? source;
+  String? author;
+  String? title;
   String? description;
   String? url;
-  String? category;
-  String? language;
-  String? country;
+  String? urlToImage;
+  DateTime? publishedAt;
+  String? content;
 
-  CategoryHedalineModel({
-    this.id,
-    this.name,
+  CategoryModel({
+    this.source,
+    this.author,
+    this.title,
     this.description,
     this.url,
-    this.category,
-    this.language,
-    this.country,
+    this.urlToImage,
+    this.publishedAt,
+    this.content,
   });
 
-  factory CategoryHedalineModel.fromJson(Map<String, dynamic> json) => CategoryHedalineModel(
-    id: json["id"],
-    name: json["name"],
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+    source: Source.fromJson(json["source"]),
+    author: json["author"],
+    title: json["title"],
     description: json["description"],
     url: json["url"],
-    category: json["category"],
-    language: json["language"],
-    country: json["country"],
+    urlToImage: json["urlToImage"],
+    publishedAt: DateTime.parse(json["publishedAt"]),
+    content: json["content"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "source": source,
+    "author": author,
+    "title": title,
+    "description": description,
+    "url": url,
+    "urlToImage": urlToImage,
+    "publishedAt": publishedAt.toString(),
+    "content": content,
+  };
+}
+
+class Source {
+  String? id;
+  String? name;
+
+  Source({
+    this.id,
+    this.name,
+  });
+
+  factory Source.fromJson(Map<String, dynamic> json) => Source(
+    id: json["id"],
+    name: json["name"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-    "description": description,
-    "url": url,
-    "category": category,
-    "language": language,
-    "country": country,
   };
 }

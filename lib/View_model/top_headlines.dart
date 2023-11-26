@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:news_app/Status/Status.drat.dart';
@@ -81,14 +82,14 @@ class Get_news_headlines extends GetxController
 
 
   //list of data froom categories vise
-  RxList<CategoryHedalineModel> categories_healine_data = <CategoryHedalineModel>[].obs;
+  RxList<CategoryModel> categories_healine_data = <CategoryModel>[].obs;
 
   //categories vise headline
   Future<void> catergories_headlines() async
   {
     //genrate link
-    var category_name = "business";
-    var url = "https://newsapi.org/v2/top-headlines/sources?category=${category_name}&apiKey=be4c0037164f4a5194991769d317d86d";
+    var category_name = "sports";
+    var url = "https://newsapi.org/v2/everything?q=${category_name}&apiKey=be4c0037164f4a5194991769d317d86d";
 
     //cear list
     categories_healine_data.clear();
@@ -98,9 +99,9 @@ class Get_news_headlines extends GetxController
         .then((value){
       request_status.setRequestStatus(Status.Complate);
       var decoded_data = jsonDecode(value.toString());
-      var main_data = decoded_data["sources"];
+      var main_data = decoded_data["articles"];
       List.of(main_data).map((e){
-        categories_healine_data.add(CategoryHedalineModel.fromJson(e));
+        categories_healine_data.add(CategoryModel.fromJson(e));
       }).toList();
       print(country_headline_data.length);
     })
