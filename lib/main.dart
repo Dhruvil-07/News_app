@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/view/category.dart';
 import 'package:news_app/view/home_screen.dart';
 import 'package:news_app/view/splashh_screen.dart';
 
@@ -17,7 +18,7 @@ class news_app extends StatelessWidget {
     return ScreenUtilInit(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: home_screen(),
+        home: splash_screen(),
       ),
     );
   }

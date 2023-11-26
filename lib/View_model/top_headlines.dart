@@ -18,10 +18,19 @@ class Get_news_headlines extends GetxController
   RxList<ChannelHeaddlineModel> channel_headline_data = <ChannelHeaddlineModel>[].obs;
 
   //channel vise headdline
-  Future<void> channel_headlines() async
+  Future<void> channel_headlines([String? val]) async
   {
-      //genrate link
-      var channel_name = "abc-news";
+    var channel_name;
+    //genrate link
+      if(val == null)
+      {
+        channel_name = "abc-news";
+      }
+      else
+      {
+         channel_name = val;
+      }
+
       var url =  "https://newsapi.org/v2/top-headlines?sources=${channel_name}&apiKey=be4c0037164f4a5194991769d317d86d";
 
       //cear list
@@ -85,11 +94,19 @@ class Get_news_headlines extends GetxController
   RxList<CategoryModel> categories_healine_data = <CategoryModel>[].obs;
 
   //categories vise headline
-  Future<void> catergories_headlines() async
+  Future<void> catergories_headlines([String? val]) async
   {
     //genrate link
-    var category_name = "sports";
-    var url = "https://newsapi.org/v2/everything?q=${category_name}&apiKey=be4c0037164f4a5194991769d317d86d";
+    var category_name;
+    if(val ==  null)
+      {
+        category_name = "general";
+      }
+    else
+      {
+         category_name = val;
+      }
+     var url = "https://newsapi.org/v2/everything?q=${category_name}&apiKey=be4c0037164f4a5194991769d317d86d";
 
     //cear list
     categories_healine_data.clear();

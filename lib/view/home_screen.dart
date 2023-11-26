@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:news_app/Status/Status.drat.dart';
 import 'package:news_app/instances/instances.dart';
 import 'package:news_app/model/channel_headline_model.dart';
+import 'package:news_app/view/category.dart';
 import 'package:news_app/view/category_design.dart';
 
 class home_screen extends StatefulWidget {
@@ -30,70 +31,133 @@ class _home_screenState extends State<home_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: ListView(
-        children: [
-
-          //top channel headlines
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .60,
-            width: double.infinity,
-            child: Obx(
-              () {
-                switch(request_status.RxRequestStatus.value)
-                {
-                  case Status.Loading :
-                    return Center(child: CircularProgressIndicator(),);
-                    break;
-
-                  case Status.Error :
-                    return Center(child: Text("Error"),);
-                    break;
-
-                  case Status.Complate :
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount : get_news_headlines.channel_headline_data.length,
-                      itemBuilder: (context, index){
-                        return channel_headline_design(
-                          channelHeaddlineModel: get_news_headlines.channel_headline_data[index],
-                        );
-                      }
-                    );
-                }
+      //app bar
+      appBar: AppBar(
+        title: Center(child: Text("News",
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold
+           ),
+          )
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0.1,
+        leading: IconButton(
+          icon: Icon(Icons.category, color: Colors.black,),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>category_screen()));
+          },
+        ),
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.menu , color: Colors.black,),
+            onSelected: (value) {
+               get_news_headlines.channel_headlines(value);
               },
-            ),
-          ),
+              itemBuilder: (context) {
+                return [
 
-          //category design
-          SizedBox(
-            height: 500.h,
-            width: double.infinity,
-            child: Obx(
-              () {
-                switch(request_status.RxRequestStatus.value)
-                {
-                  case Status.Loading :
-                    return Center(child: CircularProgressIndicator(),);
-                    break;
+                  PopupMenuItem(
+                      value: "bbc-News",
+                      child: Text("bbcNews"),
+                  ),
+                  PopupMenuItem(
+                      value: "ary-news",
+                      child: Text("aryNews"),
+                  ),
+                  PopupMenuItem(
+                      value: "independent",
+                      child: Text("independent"),
+                  ),
+                  PopupMenuItem(
+                      value: "reuters",
+                      child: Text("reuters"),
+                  ),
+                  PopupMenuItem(
+                      value: "cnn",
+                      child: Text("cnn"),
+                  ),
+                  PopupMenuItem(
+                      value: "al-jazeera-english",
+                      child: Text("alJazeera"),
+                  ),
 
-                  case Status.Error :
-                    return Center(child: Text("ERROR..."),);
-                    break;
-
-                  case Status.Complate :
-                    return ListView.builder(
-                      itemCount : get_news_headlines.categories_healine_data.length,
-                      itemBuilder: (context, index){
-                        return ccategory_design(categoryModel: get_news_headlines.categories_healine_data[index],);
-                      },
-                    );
-                }
+                ];
               },
-            ),
-          ),
-
-
+          )
         ],
+      ),
+
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: 20.h,
+        ),
+        child: ListView(
+          children: [
+
+            //top channel headlines
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .60,
+              width: double.infinity,
+              child: Obx(
+                () {
+                  switch(request_status.RxRequestStatus.value)
+                  {
+                    case Status.Loading :
+                      return Center(child: CircularProgressIndicator(),);
+                      break;
+
+                    case Status.Error :
+                      return Center(child: Text("Error"),);
+                      break;
+
+                    case Status.Complate :
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount : get_news_headlines.channel_headline_data.length,
+                        itemBuilder: (context, index){
+                          return channel_headline_design(
+                            channelHeaddlineModel: get_news_headlines.channel_headline_data[index],
+                          );
+                        }
+                      );
+                  }
+                },
+              ),
+            ),
+
+            //category design
+            SizedBox(
+              height: 500.h,
+              width: double.infinity,
+              child: Obx(
+                () {
+                  switch(request_status.RxRequestStatus.value)
+                  {
+                    case Status.Loading :
+                      return Center(child: CircularProgressIndicator(),);
+                      break;
+
+                    case Status.Error :
+                      return Center(child: Text("ERROR..."),);
+                      break;
+
+                    case Status.Complate :
+                      return ListView.builder(
+                        itemCount : get_news_headlines.categories_healine_data.length,
+                        itemBuilder: (context, index){
+                          return ccategory_design(categoryModel: get_news_headlines.categories_healine_data[index],);
+                        },
+                      );
+                  }
+                },
+              ),
+            ),
+
+
+          ],
+        ),
       ),
 
     );
