@@ -8,6 +8,7 @@ import 'package:news_app/instances/instances.dart';
 import 'package:news_app/model/channel_headline_model.dart';
 import 'package:news_app/view/category.dart';
 import 'package:news_app/view/category_design.dart';
+import 'package:news_app/view/new_detail_screen.dart';
 
 class home_screen extends StatefulWidget {
   const home_screen({super.key});
@@ -98,7 +99,7 @@ class _home_screenState extends State<home_screen> {
 
             //top channel headlines
             SizedBox(
-              height: MediaQuery.of(context).size.height * .60,
+              height: MediaQuery.of(context).size.height * .55,
               width: double.infinity,
               child: Obx(
                 () {
@@ -194,24 +195,30 @@ class channel_headline_design extends StatelessWidget {
       children: [
 
         //background image
-        Container(
-          height: 400.h,
-          width: 250.w,
-          padding: EdgeInsets.symmetric(
-            horizontal: 8.w,
-            vertical: 2.h,
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(25.spMin),
-            child: Image.network("https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D",
-            fit: BoxFit.fitHeight,
+        InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => channel_news_detail_screen(channelHeaddlineModel: channelHeaddlineModel , date: date_val,)));
+          },
+          child: Container(
+            height: 350.h,
+            width: 250.w,
+            padding: EdgeInsets.symmetric(
+              horizontal: 8.w,
+              vertical: 2.h,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25.spMin),
+              child: Image.network("https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D",
+              fit: BoxFit.fitHeight,
+              ),
             ),
           ),
         ),
 
         //detail card
         Positioned(
-          bottom: 30.0,
+          bottom: 50.h,
           left: 16.w,
           right: 16.w,
           child: Container(
@@ -220,7 +227,7 @@ class channel_headline_design extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.spMin),
               border: Border.all(color: Colors.black , width: 2.0)
             ),
-            height: 150.h,
+            height: 130.h,
             width: 210.w,
             child: Column(
               children: [

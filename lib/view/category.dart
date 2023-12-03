@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app/Status/Status.drat.dart';
 import 'package:news_app/instances/instances.dart';
+import 'package:news_app/main.dart';
 import 'package:news_app/view/category_design.dart';
+import 'package:news_app/view/new_detail_screen.dart';
 
 class category_screen extends StatefulWidget {
   const category_screen({super.key});
@@ -54,7 +56,7 @@ class _category_screenState extends State<category_screen> {
         child: Column(
           children: [
 
-            SizedBox(height: 12.h,),
+            SizedBox(height: 8.h,),
 
             Container(
                height: 50.h,
@@ -96,39 +98,39 @@ class _category_screenState extends State<category_screen> {
                  ),
               ),
 
-            SizedBox(height: 16.h,),
+            SizedBox(height: 4.h,),
 
             Expanded(
               flex: 4,
               child: Container(
-                  child: Obx(
-                    (){
-                      switch(request_status.RxRequestStatus.value)
-                      {
-                        case Status.Loading:
-                          return Center(
-                            child: CircularProgressIndicator(),
+                    child: Obx(
+                      (){
+                        switch(request_status.RxRequestStatus.value)
+                        {
+                          case Status.Loading:
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                            break;
+
+                          case Status.Error :
+                            return Center(child: Text("ERROR..."),);
+                            break;
+
+                          case Status.Complate:
+                            return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: get_news_headlines.categories_healine_data.length,
+                            itemBuilder: (context, index) {
+                                return ccategory_design(categoryModel: get_news_headlines.categories_healine_data[index],);
+                            },
                           );
-                          break;
-
-                        case Status.Error :
-                          return Center(child: Text("ERROR..."),);
-                          break;
-
-                        case Status.Complate:
-                          return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: get_news_headlines.categories_healine_data.length,
-                          itemBuilder: (context, index) {
-                              return ccategory_design(categoryModel: get_news_headlines.categories_healine_data[index],);
-                          },
-                        );
-                          break;
+                            break;
+                        }
                       }
-                    }
+                    ),
                   ),
-                ),
-            ),
+              ),
 
           ],
         ),
