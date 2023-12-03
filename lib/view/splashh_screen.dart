@@ -30,12 +30,11 @@ class _splash_screenState extends State<splash_screen> {
         height: double.infinity,
         width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            SizedBox(height: 80.h,),
-
             Container(
-              height: 300.h,
+              height: 250.h,
               width: MediaQuery.of(context).size.width,
               child: Image.network("https://t3.ftcdn.net/jpg/00/88/43/58/360_F_88435823_c3MiOAvV8gFwtQzTGlsLt6I6mFvQuQmN.jpg",
                 fit :  BoxFit.contain,
